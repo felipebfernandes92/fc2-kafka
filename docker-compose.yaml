@@ -1,6 +1,13 @@
 version: "3"
 
 services:  
+  app:
+    build: .
+    container_name: gokafka
+    volumes: 
+      - .:/go/src/
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -16,6 +23,7 @@ services:
     ports:
       - "9092:9092"
       - "9094:9094"
+    hostname: kafka
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
